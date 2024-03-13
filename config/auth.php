@@ -1,23 +1,27 @@
 <?php
+
+
+
 return [
 
     'defaults' => [
-        'guard' => 'api', // Change 'web' to 'api'
+        'guard' => 'api',
         'passwords' => 'users',
     ],
-
+    
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
+    
         'api' => [
-            'driver' => 'passport', // Use Passport for API authentication
+            'driver' => 'passport',
             'provider' => 'users',
             'hash' => false,
         ],
     ],
+    
 
     'providers' => [
         'users' => [

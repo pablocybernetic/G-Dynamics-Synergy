@@ -32,16 +32,21 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
+{
+    $credentials = [
+        'email' => $request->email,
+        'password' => $request->password
+    ];
 
-        if (Auth::attempt($credentials)) {
-            $token = auth()->user()->createToken('MyApp')->accessToken;
-            return response()->json(['token' => $token], 200);
-        }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
+    if (auth('web')->attempt($credentials)
+    ) {
+        $token = auth('web')->user()->createToken('MyApp')->accessToken;
+        return response()->json(['token' => $token], 200);
+    } else {
+        return response()->json(['error' => 'UnAuthorised'], 401);
     }
+}
+
 
     public function logout()
     {
